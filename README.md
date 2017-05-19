@@ -5,7 +5,7 @@ This is a simple http server to run and test webpages while designing webpages
 
 `java -jar /dist/SimpleHTTPServer.jar`
 
-### To runthe server on a specific port run the command:
+### To run the server on a specific port run the command:
 
 `java -jar /dist/SimpleHTTPServer.jar <port>`
 
