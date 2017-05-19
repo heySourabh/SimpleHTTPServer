@@ -29,12 +29,12 @@ public class SimpleHTTPServer {
         System.out.println("Starting server at port: " + port);
         System.out.println("Serving page: " + BASE_PATH + BASE_PAGE);
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-        server.createContext("/", new requestHandler());
+        server.createContext("/", new RequestHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
     }
 
-    static class requestHandler implements HttpHandler {
+    static class RequestHandler implements HttpHandler {
 
         @Override
         public void handle(HttpExchange httpExchange) throws IOException {
