@@ -26,7 +26,8 @@ public class SimpleHTTPServer {
             port = DEFAULT_PORT;
         }
         System.out.println("Starting server at port: " + port);
-        System.out.println("Serving page: " + BASE_PATH + BASE_PAGE);
+        System.out.println("Serving page: "
+                + new File(BASE_PATH, BASE_PAGE).getPath());
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/", new RequestHandler());
         server.setExecutor(null); // creates a default executor
@@ -47,7 +48,8 @@ public class SimpleHTTPServer {
             }
 
             if (!file.exists()) {
-                System.out.println("The path: \"" + file.getPath() + "\" does not exist.");
+                System.out.println("The path: \""
+                        + file.getPath() + "\" does not exist.");
                 byte[] resBytes = getErrorPageBytes();
                 httpExchange.sendResponseHeaders(404, resBytes.length);
                 try (OutputStream os = httpExchange.getResponseBody()) {
