@@ -46,6 +46,18 @@ public class SimpleHTTPServer {
             } else {
                 file = new File(BASE_PATH, req);
             }
+
+            if (!file.exists()) {
+                System.out.println("The path: \"" + file.getPath() + "\" does not exist.");
+                String errorPage = "<h1>Does not exist.</h1>";
+                byte[] resBytes = errorPage.getBytes();
+                httpExchange.sendResponseHeaders(404, resBytes.length);
+                try (OutputStream os = httpExchange.getResponseBody()) {
+                    os.write(resBytes);
+                }
+                return;
+            }
+
             FileInputStream fis = new FileInputStream(file);
             httpExchange.sendResponseHeaders(200, fis.available());
             try (OutputStream os = httpExchange.getResponseBody()) {
