@@ -10,7 +10,6 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class SimpleHTTPServer {
 
@@ -49,8 +48,7 @@ public class SimpleHTTPServer {
 
             if (!file.exists()) {
                 System.out.println("The path: \"" + file.getPath() + "\" does not exist.");
-                String errorPage = "<h1>Does not exist.</h1>";
-                byte[] resBytes = errorPage.getBytes();
+                byte[] resBytes = getErrorPageBytes();
                 httpExchange.sendResponseHeaders(404, resBytes.length);
                 try (OutputStream os = httpExchange.getResponseBody()) {
                     os.write(resBytes);
@@ -61,7 +59,17 @@ public class SimpleHTTPServer {
             FileInputStream fis = new FileInputStream(file);
             httpExchange.sendResponseHeaders(200, fis.available());
             try (OutputStream os = httpExchange.getResponseBody()) {
-                Files.copy(Paths.get(file.toURI()), os);
+                Files.copy(file.toPath(), os);
+            }
+        }
+
+        private byte[] getErrorPageBytes() throws IOException {
+            File errorPageFile = new File(BASE_PATH, "404.html");
+            System.out.println(errorPageFile);
+            if (errorPageFile.exists()) {
+                return Files.readAllBytes(errorPageFile.toPath());
+            } else {
+                return "<h1>Does not exist.</h1>".getBytes();
             }
         }
     }
