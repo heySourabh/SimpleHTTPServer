@@ -65,7 +65,6 @@ public class SimpleHTTPServer {
 
         private byte[] getErrorPageBytes() throws IOException {
             File errorPageFile = new File(BASE_PATH, "404.html");
-            System.out.println(errorPageFile);
             if (errorPageFile.exists()) {
                 return Files.readAllBytes(errorPageFile.toPath());
             } else {
