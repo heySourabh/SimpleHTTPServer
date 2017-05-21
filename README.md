@@ -5,6 +5,8 @@ This is a simple http server to run and test webpages while designing webpages
 
 `java -jar ./dist/SimpleHTTPServer.jar`
 
+#### Now you can open a web browser and enter http://localhost:8000 to open the index.html
+
 ### To run the server on a specific port run the command:
 
 `java -jar ./dist/SimpleHTTPServer.jar <port>`
