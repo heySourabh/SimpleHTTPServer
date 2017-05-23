@@ -27,7 +27,8 @@ public class SimpleHTTPServer {
                 + new File(BASE_PATH, BASE_PAGE).getPath());
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/", new RequestHandler());
-        server.setExecutor(null); // creates a default executor
+        server.createContext("/q", new GetMethodHandler());
+        server.setExecutor(null);
         server.start();
     }
 }
