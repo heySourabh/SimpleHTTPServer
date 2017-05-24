@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class GetMethodHandler implements HttpHandler {
             return null;
         }
 
-        String query = uri.getQuery();
+        String query = URLDecoder.decode(uri.getQuery(), "UTF-8");
 
         System.out.println("URI: " + uri);
         System.out.println("Query: " + query);

@@ -1,24 +1,116 @@
 <!DOCTYPE html>
 <html>
+
+<style>
+    .text-box {
+        border: none;
+        border-radius: 5px;
+        background-color: green;
+        color: white;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 5px 20px;
+    }
+    
+    .btn {
+        border: none;
+        background-color: orange;
+        font-weight: bold;
+        font-size: 20px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+    
+    .btn:hover {
+        background-color: #ff9800;
+        box-shadow:0px 0px 15px 5px white;
+    }
+    
+    .txt {
+        width: 80%;
+        margin: 0 auto;
+        font-weight:bold;
+        font-size:20px;
+        background-color:#d0e7f0;
+        text-align: center;
+        border-radius: 10px;
+    }
+    
+    .form-container-outer {
+        box-shadow: 0px 0px 5px 2px skyblue;
+        background-color:#1cbcb2;
+        padding:5px;
+    }
+    
+    .form-container-inner {
+        margin: 0 auto;
+        padding:10px;
+        width:300px;
+        background-color:#36b8e9;
+    }
+    
+    .grad {
+        background: #1bbbb2; /* For browsers that do not support gradients */    
+        background: -webkit-linear-gradient(left top, #1bbbb2, #36b8e9); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(bottom right, #1bbbb2, #36b8e9); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(bottom right, #1bbbb2, #36b8e9); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(to bottom right, #1bbbb2, #36b8e9); /* Standard syntax (must be last) */
+    }
+</style>
+
 <title>Sample Webpage</title>
-<body>
+<body style="background:#eff;">
+<div class = "grad" style="margin: 0 auto; width: 800px; padding:20px 80px; border-radius:50px;">
+    <h1 style="text-align: center">Sample Page</h1>
+    <h2 style="text-align: center">Replace this with your beautiful index page. :)</h2>
 
-<h1>Sample Page</h1>
-<h2>Replace this with your beautiful index page. :)</h2>
+    <br>
+    
+    <div class="form-container-outer">
+      <div class="txt">
+            Send data to server using POST method
+        </div>
+        <div class="form-container-inner">
+            <form action="/form/" method="post">
+              Username:<br>
+                <input class="text-box" type="text" name="user" value="Harry">
+              <br> <br>
+              Password:<br>
+                <input class="text-box" type="password" name="password" value="Potter">
+              <br><br>
+              <div style="margin: 0 auto; width:30%">
+                  <input class="btn" type="submit" value="Post">
+              </div>
+            </form>
+      </div>
+    </div>
+    
+    <br>
+    <br>
+    
+    <div class="form-container-outer">
+        <div class="txt">
+            Send data to server using GET method
+        </div>
+        <div class="form-container-inner">
+            <form action="/q/" method="get">
+              Name:<br>
+                <input class="text-box" type="text" name="name" value="Batman">
+              <br> <br>
+              Address:<br>
+              <textarea class="text-box" name="address" cols="26" rows="2">Gotham City, New Jersey, USA</textarea>
+              <br><br>
+              <div style="margin: 0 auto; width:30%">
+                  <input class="btn" type="submit" value="Send">
+              </div>
+            </form>
+        </div>
+    </div>
+    
+    <br>
 
--------------------------------------------------------------
-<br><br>
-Below is a simple form:
-<br><br>
-<form action="/form/" method="post">
-  Username:<br>
-  <input type="text" name="user" value="Harry">
-  <br>
-  Password:<br>
-  <input type="password" name="password" value="Potter">
-  <br><br>
-  <input type="submit" value="Post">
-</form>
-
+    Example of <b>"No such page"</b> (error 404). <br>
+    <a href=win_lottery.html>Win a lottery!!</a>
+</div>
 </body>
 </html>
