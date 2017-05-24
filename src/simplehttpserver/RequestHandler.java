@@ -15,11 +15,12 @@ import java.nio.file.Files;
 public class RequestHandler implements HttpHandler {
 
     @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
+    public void handle(HttpExchange he) throws IOException {
         File file;
-        String req = httpExchange.getRequestURI().getPath();
+        String req = he.getRequestURI().getPath();
         System.out.println(req);
         if (req.equals("/")) {
+            he.getResponseHeaders().add("Content-type", "text/html");
             file = new File(SimpleHTTPServer.BASE_PATH, SimpleHTTPServer.BASE_PAGE);
         } else {
             file = new File(SimpleHTTPServer.BASE_PATH, req);
@@ -29,16 +30,17 @@ public class RequestHandler implements HttpHandler {
             System.out.println("The path: \""
                     + file.getPath() + "\" does not exist.");
             byte[] resBytes = getErrorPageBytes();
-            httpExchange.sendResponseHeaders(404, resBytes.length);
-            try (OutputStream os = httpExchange.getResponseBody()) {
+            he.getResponseHeaders().add("Content-type", "text/html");
+            he.sendResponseHeaders(404, resBytes.length);
+            try (OutputStream os = he.getResponseBody()) {
                 os.write(resBytes);
             }
             return;
         }
 
         FileInputStream fis = new FileInputStream(file);
-        httpExchange.sendResponseHeaders(200, fis.available());
-        try (OutputStream os = httpExchange.getResponseBody()) {
+        he.sendResponseHeaders(200, fis.available());
+        try (OutputStream os = he.getResponseBody()) {
             Files.copy(file.toPath(), os);
         }
     }

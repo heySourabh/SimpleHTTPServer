@@ -28,6 +28,7 @@ public class SimpleHTTPServer {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/", new RequestHandler());
         server.createContext("/q", new GetMethodHandler());
+        server.createContext("/form", new PostMethodHandler());
         server.setExecutor(null);
         server.start();
     }

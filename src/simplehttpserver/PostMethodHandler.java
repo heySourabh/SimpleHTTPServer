@@ -3,8 +3,10 @@ package simplehttpserver;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ import java.util.Map;
  *
  * @author Sourabh Bhat <sourabh.bhat@iitb.ac.in>
  */
-public class GetMethodHandler implements HttpHandler {
+public class PostMethodHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange he) throws IOException {
@@ -23,7 +25,7 @@ public class GetMethodHandler implements HttpHandler {
 
         // Put the logic to use the queryMap and respond, below this line.
         // Below is some logic for debugging which you may want to replace:
-        String out = "You have sent " + queryMap.size() + " parameters using get: " + queryMap;
+        String out = "You have sent " + queryMap.size() + " parameters using post: " + queryMap;
         he.getResponseHeaders().add("Content-type", "text/html");
 
         byte[] bytes = out.getBytes();
@@ -44,10 +46,20 @@ public class GetMethodHandler implements HttpHandler {
             return null;
         }
 
-        String query = uri.getQuery();
+        if (!he.getRequestMethod().equals("POST")) {
+            return queryToMap("");
+        }
 
-        System.out.println("URI: " + uri);
-        System.out.println("Query: " + query);
+        System.out.println(he.getRequestHeaders().entrySet());
+        InputStream requestStream = he.getRequestBody();
+        byte[] bytes = new byte[1024];
+        int numRead;
+        String query = "";
+        while ((numRead = requestStream.read(bytes)) != -1) {
+            query += new String(bytes, 0, numRead);
+        }
+        System.out.println("Raw query: " + query);
+        query = URLDecoder.decode(query, "UTF-8");
 
         return queryToMap(query);
     }
